@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.w-90p{
+    width: 75%;
+    margin-right: 10%;
+}
+.mt-90p{
+    margin-top: 5%;
+    width: 15%;
+    text-align: center;
+}
+.w-33p{
+    width: 33%;
+}
+.w-34p{
+    width: 34%;
+}
+.top-99p{
+    top:99%;
+}
+.w-70p{
+    width: 65%;
+}
