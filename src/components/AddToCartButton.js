@@ -71,15 +71,15 @@ const AddToCartButton = ({ item, restaurant }) => {
     }
 
     return (
-        <div className='mt-90p'>
+        <div className='mt-90p w-1/4 sm:w-1/4'>
             {(itemCount === 0) ?
                 <button onClick={handler} className='text-green-600 font-bold rounded-md border-2 pl-4 pr-4 pb-1 pt-1 border-gray-800'>Add</button>
                 : <div className='flex  flex-row text-green-600 font-bold rounded-md border-2 border-gray-800'>
-                    <button className='text-2xl p-1 w-33p hover:bg-gray-200' onClick={ReduceByOne}>-</button>
-                    <span className='text-2xl w-34p mt-1 ml-4 mr-4'>
+                    <button className='text-md sm:text-2xl p-1 w-1/3 hover:bg-gray-200' onClick={ReduceByOne}>-</button>
+                    <span className='text-md sm:text-2xl w-1/3 mt-1  sm:ml-4 sm:mr-4'>
                         {itemCount}
                     </span>
-                    <button className='p-1 w-33p hover:bg-gray-200 text-2xl' onClick={AddByOne}>+</button>
+                    <button className='p-1 w-1/3 hover:bg-gray-200 text-md sm:text-2xl' onClick={AddByOne}>+</button>
                 </div>
             }
         </div>

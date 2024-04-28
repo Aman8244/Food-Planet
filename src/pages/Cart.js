@@ -2,7 +2,7 @@ import React from 'react'
 import { Navbar } from '../components/Navbar'
 import { useSelector, useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { useUser } from "@clerk/clerk-react";
+import { SignInButton, useUser } from "@clerk/clerk-react";
 import { removeItem, reduceByOne, addByOne } from "../store/slice/cartSlice";
 
 const Cart = () => {
@@ -48,40 +48,13 @@ const Cart = () => {
         <>
             <Navbar />
             {cart ? cart[0] ?
-                <div className='flex flex-row m-0 pt-4 pb-4 bg-gray-400'>
-                    <div className='w-70p'>
-                        <div className='bg-white p-4 ml-8 mt-4 border-black'>
-                            <h1 className='flex text-3xl font-bold flex-row'>
-                                Logged In
-                                <span className='ml-8'><img width="38" height="38" src="https://img.icons8.com/color/48/ok--v1.png" alt="ok--v1" /></span>
-                            </h1>
-                            <h2 className='text-xl mt-4 '>
-                                Hi! {user.fullName}
-                            </h2>
-                        </div>
-                        <div className='bg-white p-4 ml-8 mt-4 - border-black'>
-                            <h1 className='flex text-3xl font-bold flex-row'>
-                                Add a delivery address
-                            </h1><br />
-                            <form>
-                                <label htmlFor="Address" className='text-xl '>Address</label><br />
-                                <input className='w-full border border-black mt-2 mb-2 p-4 rounded-sm' type="text" id='Address' />
-                                <br />
-                                <label htmlFor="FlatNo" className='text-xl '>Door/Flat No</label><br />
-                                <input className='w-full border border-black mt-2 mb-2 p-4 rounded-sm' type="text" id='FlatNo' />
-                                <br />
-                                <label htmlFor="Landmark" className='text-xl '>Landmark</label><br />
-                                <input className='w-full border border-black mt-2 mb-2 p-4 rounded-sm' type="text" id='Landmark' />
-                                <button className='p-2 text-xl text-white bg-orange-500 border-2 border-black'>Add</button>
-                            </form>
-                        </div>
-                    </div>
-                    <div>
+                <div className='min-h-screen m-0 pt-10 sm:pt-4  bg-gray-400'>
+                    <div className='w-full sm:w-3/4 lg:w-3/5'>
                         <div className='bg-white p-4 ml-8 mt-4 mr-8 border-black'>
                             <div>
                                 {cart[0].restaurant ?
                                     <div>
-                                        <h2 className='text-xl font-semibold'>{cart[0].restaurant.info.name}</h2>
+                                        <h2 className='text-lg sm:text-xl font-semibold'>{cart[0].restaurant.info.name}</h2>
                                         <p>
                                             {cart[0].restaurant.info.locality}
                                         </p>
@@ -92,16 +65,16 @@ const Cart = () => {
                                 {cart ? cart.map((el) => {
                                     return (
                                         <div className='flex flex-row mt-8'>
-                                            <div className=''>
+                                            <div className='w-3/5'>
                                                 {el.card.info.name}
                                             </div>
                                             <div className='ml-8'>
                                                 <div className='flex  flex-row text-green-600 font-bold rounded-md border-2 border-gray-800'>
-                                                    <button className='text-2xl p-1 w-33p hover:bg-gray-200' onClick={() => ReduceByOne(el.quantity, el)}>-</button>
-                                                    <span className='text-2xl w-34p mt-1 ml-4 mr-4'>
+                                                    <button className='text-lg sm:text-2xl p-1 w-1/3 hover:bg-gray-200' onClick={() => ReduceByOne(el.quantity, el)}>-</button>
+                                                    <span className='text-lg sm:text-2xl w-1/3 mt-1 ml-4 mr-4'>
                                                         {el.quantity}
                                                     </span>
-                                                    <button className='p-1 w-33p hover:bg-gray-200 text-2xl' onClick={() => AddByOne(el.quantity, el)}>+</button>
+                                                    <button className='text-lg p-1 w-1/3  hover:bg-gray-200 sm:text-2xl' onClick={() => AddByOne(el.quantity, el)}>+</button>
                                                 </div>
                                             </div>
                                             <div className='ml-8'>
@@ -112,8 +85,36 @@ const Cart = () => {
                                     )
                                 }) : <></>}
                             </div>
+                            {(!user) ?
+                                <>
+                                    <div className='mt-10'>
+                                        <hr />
+                                        <h1>
+                                            Place Order
+                                        </h1>
+                                        <h2 className='text-2xl'>
+                                            You aren't Signed In
+                                        </h2>
+                                        <p>Please sign in</p>
+                                        <SignInButton>
+                                            <button className='border bg-green-500 text-white border-gray-400 rounded-lg w-full p-2 mt-4'>
+                                                Sign In
+                                            </button>
+                                        </SignInButton>
+                                    </div>
+                                </> : <>
+                                    <div className='mt-10'>
+                                        <hr />
+                                        <button className='w-full mt-6 p-2 rounded-lg bg-orange-600 text-white'>
+                                            Place Order
+                                        </button>
+                                    </div>
 
+                                </>
+
+                            }
                         </div>
+
                     </div>
                 </div> :
                 <div>

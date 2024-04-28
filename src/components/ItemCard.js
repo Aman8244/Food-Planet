@@ -9,7 +9,7 @@ const ItemCard = ({ item, restaurant }) => {
     return (
         <div>
             {item ? item.card ?
-                <div className='mb-8 mt-8'>
+                <div className=' mt-4 mb-4  sm:mb-8 sm:mt-8'>
                     <div>
                         <div>
                             {item.card.info.itemAttribute ?
@@ -17,8 +17,8 @@ const ItemCard = ({ item, restaurant }) => {
                                     <NonVegClassifier height={16} width={16} /> : <VegClassifier height={16} width={16} /> : <></>}
                         </div>
                         <div className='flex flex-row'>
-                            <div className='w-90p'>
-                                <h3 className='text-lg font-semibold'>{item.card.info.name}</h3>
+                            <div className='w-3/4 sm:w-11/12'>
+                                <h3 className='text-md sm:text-lg font-semibold'>{item.card.info.name}</h3>
                                 <p>
                                     <span>&#8377;</span>
                                     {Math.floor((item.card.info.price) / 100)}
@@ -30,7 +30,7 @@ const ItemCard = ({ item, restaurant }) => {
                                             {'('}{item.card.info.ratings.aggregatedRating.ratingCountV2}{')'}
                                         </span>
                                     </div> : <></>}
-                                <p className='text-gray-600 text-wrap'>
+                                <p className='text-gray-600 text-wrap mr-2'>
                                     {item.card.info.description}
                                 </p>
                             </div>

@@ -12,11 +12,11 @@ const MenuCard = ({ el ,restaurant}) => {
             <div className='mb-8'>
                 {(el.card && el.card.card && el.card.card.title)?
                     <div onClick={toggleCollapse} className='flex flex-row'>
-                        <h3 className='text-2xl w-90 font-bold'>
+                        <h3 className='text-lg sm:text-2xl sm:w-11/12 w-11/12 font-bold'>
                             {el.card.card.title} {el.card.card.itemCards ? <span>
                                 {'('}{el.card.card.itemCards.length}{')'}</span> : <></>}
                         </h3> 
-                        <div className="w-10 absolute right-40">
+                        <div className="w-1/12">
                             {isCollapsed ? <img width="30" height="30" src="https://img.icons8.com/ios/50/expand-arrow--v2.png" alt="expand-arrow--v2" />
                                 : <img width="30" height="30" src="https://img.icons8.com/ios/50/collapse-arrow--v2.png" alt="collapse-arrow--v2" />}
                         </div>

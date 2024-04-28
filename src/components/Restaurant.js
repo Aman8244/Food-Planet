@@ -4,19 +4,139 @@ import { Link } from 'react-router-dom';
 
 const Restaurant = () => {
     const [data, setData] = useState([]);
+    const [temp, setTemp] = useState([]);
+    const [isfastDeliveryClicked, setIsFastDeliveryClicked] = useState(false);
+    const [isRatingsClicked, setIsRatingsClicked] = useState(false);
+    const [isLessThanClicked, setIsLessThanClicked] = useState(false);
+    const [isBetweenClicked, setIsBetweenClicked] = useState(false);
+
     useEffect(() => {
         setData(RestroData.card.card.gridElements.infoWithStyle.restaurants);
+        setTemp(RestroData.card.card.gridElements.infoWithStyle.restaurants);
     }, [])
-    console.log(data)
+
+    const handleFastDelivery = (e) => {
+        e.preventDefault();
+        setIsFastDeliveryClicked(true)
+        setTemp(() => {
+            return temp.filter((el) => {
+                return (el.info.sla.deliveryTime < 30)
+            })
+        });
+    }
+
+    const handleRatings = (e) => {
+        e.preventDefault();
+        setIsRatingsClicked(true);
+        setTemp(() => {
+            return temp.filter((el) => {
+                return (el.info.avgRating > 4)
+            })
+        });
+    }
+    const handleCostForTwo = (filterRange) => {
+
+        setTemp(() => {
+            return temp.filter((el) => {
+                const costString = el.info.costForTwo;
+                const cost = parseInt(costString.match(/\d+/)[0]);
+                switch (filterRange) {
+                    case 'lessThan300':
+                        setIsLessThanClicked(true)
+                        return cost < 300;
+                    case 'between300And600':
+                        setIsBetweenClicked(true)
+                        return cost >= 300 && cost <= 600;
+                    default:
+                        return true;
+                }
+            })
+        })
+    }
+
+
     return (
-        <div className=' ml-20 mr-20 mt-10 mb-10'>
-            {(data && data[0]) ? <>
-                {data.map((el) => {
+        <div className='ml-2 mt-4 mr-2 sm:ml-20 sm:mr-20 sm:mt-10 sm:mb-10'>
+            <div className='flex flex-row mb-4 flex-wrap justify-between '>
+                {isfastDeliveryClicked ?
+                    <button onClick={() => {
+                        const tempArr = data.filter((el) => {
+                            return el.info.sla.deliveryTime >= 30
+                        })
+                        setTemp((prev) => {
+                            return [...prev,...tempArr]
+                        })
+                        setIsFastDeliveryClicked(false)
+                    }} className='sm:p-2 border border-gray-400 w-1/3 sm:w-2/12 mt-2 p-1 shadow-sm sm:ml-1 rounded-sm sm:rounded-xl bg-gray-700 text-gray-200'>
+                        Fast Delivery
+                    </button>
+                    : <button onClick={handleFastDelivery} className='sm:w-2/12 p-1 mt-2 sm:p-2 w-1/3 border border-gray-400 shadow-sm sm:ml-1 rounded-sm sm:rounded-xl text-gray-600'>
+                        Fast Delivery
+                    </button>
+                }
+                {isRatingsClicked ?
+                    <button onClick={() => {
+                        const tempArr = data.filter((el) => {
+                            return el.info.avgRating < 4 
+                        })
+                        setTemp((prev) => {
+                            return [...prev,...tempArr]
+                        })
+                        setIsRatingsClicked(false)
+                    }} className='sm:p-2 border border-gray-400 w-1/3 sm:w-2/12 mt-2 p-1 shadow-sm sm:ml-1 rounded-sm sm:rounded-xl bg-gray-700 text-gray-200'>
+                        Ratings 4.0+
+                    </button>
+                    : <button onClick={handleRatings} className='sm:w-2/12 p-1 mt-2 sm:p-2 w-1/3 border border-gray-400 shadow-sm sm:ml-1 rounded-sm sm:rounded-xl text-gray-600'>
+                        Ratings 4.0+
+                    </button>
+                }
+                {isBetweenClicked ?
+                    <button onClick={() => {
+                        const tempArr = data.filter((el) => {
+                            const costString = el.info.costForTwo;
+                            const cost = parseInt(costString.match(/\d+/)[0]);
+                            return cost<300 || cost>600
+                        })
+                        setTemp((prev) => {
+                            return [...prev,...tempArr]
+                        })
+                        setIsBetweenClicked(false)
+                    }} className='sm:p-2 border border-gray-400 w-1/3 sm:w-2/12 mt-2 p-1 shadow-sm sm:ml-1 rounded-sm sm:rounded-xl bg-gray-700 text-gray-200'>
+                        Rs 300 -Rs 600
+                    </button>
+                    :
+                    <button onClick={() => handleCostForTwo('between300And600')} className='sm:w-2/12 p-1 mt-2 sm:p-2 w-1/3 border border-gray-400 shadow-sm sm:ml-1 rounded-sm sm:rounded-xl text-gray-600'>
+                        Rs 300 -Rs 600
+                    </button>
+                }
+                {isLessThanClicked ?
+                    <button onClick={() => {
+                        setTemp((prev) => {
+                            const temparr = data.filter((el) => {
+                                const costString = el.info.costForTwo;
+                                const cost = parseInt(costString.match(/\d+/)[0]);
+                                return cost >= 300
+                            })
+                            return [...prev,...temparr]
+                        })
+                        setIsLessThanClicked(false)
+                    }} className='sm:p-2 border border-gray-400 w-1/3 sm:w-2/12 mt-2 p-1 shadow-sm sm:ml-1 rounded-sm sm:rounded-xl bg-gray-700 text-gray-200'>
+                        Less than Rs. 300
+                    </button>
+                    :
+                    <button onClick={() => handleCostForTwo('lessThan300')} className='sm:w-2/12 p-1 mt-2 sm:p-2 w-1/3 border border-gray-400 shadow-sm sm:ml-1 rounded-sm sm:rounded-xl text-gray-600'>
+                        Less than Rs. 300
+                    </button>
+                }
+
+            </div>
+            {(temp && temp[0]) ? <>
+                {temp.map((el) => {
                     return (
                         <Link to={`/restaurant/${el.info.id}`}>
-                            <div className='inline-block ml-8 mb-6'>
+                            <div className='inline-block w-45p sm:w-60 mb-4 sm:ml-2 sm:mb-6'>
                                 <div key={el.info.id} className='max-w-60 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700'>
-                                    <img className="rounded-t-lg min-w-60 max-h-40" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQKlb3BURO2FSGiYwgaPdjYeYcO7FxWWz1ZX2ugJ2SnWA&s" alt="restaurant" />
+                                    <img className="rounded-t-lg w-full sm:min-w-60 max-h-40" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQKlb3BURO2FSGiYwgaPdjYeYcO7FxWWz1ZX2ugJ2SnWA&s" alt="restaurant" />
                                     <h3 className='font-bold truncate pl-2 pb-1 pr-2'>{el.info.name}</h3>
                                     <div className='flex flex-row font-bold pl-2 pb-1 pr-2'>
                                         <span>
@@ -45,7 +165,7 @@ const Restaurant = () => {
                         </Link>
                     )
                 })}
-            </> : <><h1>Loading</h1></>}
+            </> : <></>}
         </div>
     )
 }

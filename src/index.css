@@ -8,7 +8,6 @@
 }
 .mt-90p{
     margin-top: 5%;
-    width: 15%;
     text-align: center;
 }
 .w-33p{
@@ -22,4 +21,17 @@
 }
 .w-70p{
     width: 65%;
+}
+.w-60p{
+    width: 60%;
+}
+.mt-10p{
+    margin-top: 15%;
+}
+.min-h-550{
+    min-height: 528px;
+}
+.w-45p{
+    width: 45%;
+    margin: 2.5%;
 }

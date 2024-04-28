@@ -5,8 +5,8 @@ const ViewCart = ({cart}) => {
         <>
             <div className='relative text-white font-bold'>
                 {cart ? cart[0] ?
-                    <div className='bg-green-600 bottom-0 w-90p fixed p-4 flex flex-row'>
-                        <div className='w-90p'>
+                    <div className='bg-green-600 bottom-0 w-11/12 sm:w-3/4 fixed p-4 flex flex-row'>
+                        <div className='sm:w-3/4 w-2/3'>
                             {cart.length} items added
                         </div>
                         <div>
