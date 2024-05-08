@@ -43,7 +43,7 @@ const RestaurantMenu = () => {
                                     <span className='mr-4'>
                                         {`(`}{restaurant.info.totalRatingsString} ratings {`)`}
                                     </span>
-                                    <li className='mr-4'>{restaurant.info.costForTwo} for two</li>
+                                    <li className='mr-4'>{restaurant.info.costForTwo}</li>
 
                                 </div>
                                 <div className='ml-4 mb-4 mt-2'>
