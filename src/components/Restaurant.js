@@ -138,7 +138,7 @@ const Restaurant = () => {
                             <div className='inline-block w-45p sm:w-60 mb-4 sm:ml-2 sm:mb-6'>
                                 <div key={el.info.id} className='max-w-60 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700'>
                                     {images.filter((res)=>el.info.name === res.name).map(i=>{
-                                        return <img className="rounded-t-lg w-full sm:min-w-60 min-h-30 max-h-32" src={i.url} alt="restaurant" />
+                                        return <img className="rounded-t-lg w-full sm:min-w-60 min-h-32 max-h-32" src={i.url} alt="restaurant" />
                                     })}
                                     <h3 className='font-bold truncate pl-2 pb-1 pr-2'>{el.info.name}</h3>
                                     <div className='flex flex-row font-bold pl-2 pb-1 pr-2'>
