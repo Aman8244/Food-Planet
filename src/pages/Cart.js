@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { SignInButton, useUser } from "@clerk/clerk-react";
 import { removeItem, reduceByOne, addByOne } from "../store/slice/cartSlice";
+import Footer from '../components/Footer';
 
 const Cart = () => {
     const cart = useSelector(state => state.cartItem);
@@ -96,7 +97,7 @@ const Cart = () => {
                                             You aren't Signed In
                                         </h2>
                                         <p>Please sign in</p>
-                                        <SignInButton>
+                                        <SignInButton CLERK_SIGN_IN_FORCE_REDIRECT_URL={"/cart"}>
                                             <button className='border bg-green-500 text-white border-gray-400 rounded-lg w-full p-2 mt-4'>
                                                 Sign In
                                             </button>
@@ -133,6 +134,7 @@ const Cart = () => {
                 </div> :
                 <>
                 </>}
+                <Footer/>
         </>
     )
 }

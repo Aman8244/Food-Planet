@@ -6,6 +6,7 @@ import MenuData from '../utils/menudata'
 import ItemCard from '../components/ItemCard'
 import ViewCart from '../components/ViewCart'
 import { useSelector } from 'react-redux'
+import Footer from '../components/Footer'
 
 const SearchMenu = () => {
   const { restaurantId } = useParams();
@@ -59,6 +60,7 @@ const SearchMenu = () => {
           </div> : <></>}
         <ViewCart cart={cart} />
       </div>
+      <Footer/>
     </>
   )
 }

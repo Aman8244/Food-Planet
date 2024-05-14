@@ -10,6 +10,7 @@ import SliderButton from '../components/SliderButton';
 import { useSelector } from 'react-redux';
 import ViewCart from '../components/ViewCart';
 import MenuData from '../utils/menudata';
+import Footer from '../components/Footer';
 
 const RestaurantMenu = () => {
     const { id } = useParams();
@@ -101,7 +102,7 @@ const RestaurantMenu = () => {
                 </div>
                 :
                 <h1>Loading...</h1>}
-
+            <Footer/>
         </>
     )
 }
