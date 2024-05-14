@@ -3,7 +3,7 @@ import { Navbar } from '../components/Navbar'
 import { useSelector, useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { SignInButton, useUser } from "@clerk/clerk-react";
-import { removeItem, reduceByOne, addByOne } from "../store/slice/cartSlice";
+import { removeItem, reduceByOne, addByOne, clearCart } from "../store/slice/cartSlice";
 import Footer from '../components/Footer';
 
 const Cart = () => {
@@ -37,6 +37,13 @@ const Cart = () => {
         console.log(cart)
 
     }
+    const PlaceOrder = (e)=>{
+        e.preventDefault()
+        dispatch(clearCart())
+        alert("your order has been placed :)")
+    }
+    
+
     if (!isLoaded) {
         return <div>
             Loading...
@@ -106,7 +113,7 @@ const Cart = () => {
                                 </> : <>
                                     <div className='mt-10'>
                                         <hr />
-                                        <button className='w-full mt-6 p-2 rounded-lg bg-orange-600 text-white'>
+                                        <button onClick={PlaceOrder} className='w-full mt-6 p-2 rounded-lg bg-orange-600 text-white'>
                                             Place Order
                                         </button>
                                     </div>
